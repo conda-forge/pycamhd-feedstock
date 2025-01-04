@@ -5,25 +5,27 @@ package:
   version: "{{ version }}"
 
 source:
-  url: https://pypi.io/packages/source/p/pycamhd/pycamhd-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/p/pycamhd/pycamhd-{{ version }}.tar.gz
   sha256: 84b3303c595a7ce5fe96debf4b273ce18a25edafccebfe5fb342b69e630ae141
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
   host:
-    - python
+    - python {{ python_min }}
     - pip
   run:
     - av >=0.4.0
     - numpy
-    - python
+    - python >={{ python_min }}
     - requests
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - pycamhd
 
